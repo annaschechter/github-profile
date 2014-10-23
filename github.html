@@ -5,17 +5,21 @@
 	<body> 
 		<main>
 		<section>
-			<input type="text" id="prof_name" placeholder="Enter github profile username"/>
+			<input type="text" id="prof_name" placeholder="Enter github profile username"
+			onfocus="if(this.value!=='Enter github profile username')this.value=''"/>
 			<a href="#" id="fetch">fetch</a>
 		</section>
+
 		<section id="profiles">
 		</section>
+
 		<template id="profileTemplate" type="text/x-handlebars-template">
+			<div id="delete"><a href="#">X</a></div>
 			<img src="{{avatar_url}}"/>
-			<h1>{{name}}</h1>
-			<h2>{{login}}</h2>
-			<p>{{followers}}</p>
-			<p>{{public_repos}}</p> 
+			<h1>Name:{{name}}</h1>
+			<h2>Username:{{login}}</h2>
+			<p>Followers:{{followers}}</p>
+			<p>Public repos:{{public_repos}}</p>	
 		</template>
 		</main>
 			<script type="text/javascript" src="jquery.js"></script>
@@ -24,6 +28,7 @@
 			<script type="text/javascript">
 				$(document).ready(function() {
 					var userName;
+
 					$('#fetch').on('click', function() {
 						var userName = $('#prof_name').val();
 						var source = $("#profileTemplate").html();
