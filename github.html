@@ -1,13 +1,38 @@
+<!DOCTYPE html>
 <html>
 	<head>	
 	</head>
 	<body> 
 		<main>
 		<section>
-			<input type="text" id="prof_name" placeholder="Enter github profile you want to fetch"/>
-			<input type="text" id="profile_name"/>
+			<input type="text" id="prof_name" placeholder="Enter github profile username"/>
 			<a href="#" id="fetch">fetch</a>
 		</section>
+		<section id="profiles">
+		</section>
+		<template id="profileTemplate" type="text/x-handlebars-template">
+			<img src="{{avatar_url}}"/>
+			<h1>{{name}}</h1>
+			<h2>{{login}}</h2>
+			<p>{{followers}}</p>
+			<p>{{public_repos}}</p> 
+		</template>
 		</main>
+			<script type="text/javascript" src="jquery.js"></script>
+			<script type="text/javascript" src="handlebars.js"></script>
+			<script type="text/javascript" src="victorias-secrets.js"></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					var userName;
+					$('#fetch').on('click', function() {
+						var userName = $('#prof_name').val();
+						var source = $("#profileTemplate").html();
+						var template = Handlebars.compile(source); 
+						$.get('https://api.github.com/users/' + userName + '?client_id=' + id + '&client_secret=' + secret, function(data) {
+							$('#profiles').append(template(data));
+						});
+					});
+				});
+			</script>
 	</body>
 </html>
